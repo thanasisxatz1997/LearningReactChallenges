@@ -1,0 +1,26 @@
+import { useEffect, useState } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [timeCounter, setTimeCounter] = useState(10);
+  const [clicksCounter, setClicksCounter] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeCounter((timeCounter) => timeCounter - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <>
+      {timeCounter > -1 ? (
+        <div className="App">
+          <h1>No of Clicks until timer expires</h1>
+          <h1>{clicksCounter}</h1>
+          <div>Time left: {timeCounter} seconds</div>
+          <button onClick={() => setClicksCounter(clicksCounter + 1)}>+</button>
+        </div>
+      ) : null}
+    </>
+  );
+}
