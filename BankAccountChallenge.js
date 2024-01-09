@@ -4,6 +4,7 @@ import { useReducer } from "react";
 const initialState = { balance: 0, loan: 0, status: "closed" };
 
 function reducer(state, action) {
+  if (!state.status === "closed" && action.type !== "open") return;
   switch (action.type) {
     case "openAccount":
       return { ...state, balance: 400, status: "open" };
@@ -24,7 +25,9 @@ function reducer(state, action) {
           }
         : { ...state };
     case "requestLoan":
-      return state.loan === 0 ? { ...state, loan: 5000 } : { ...state };
+      return state.loan === 0
+        ? { ...state, loan: action.payload }
+        : { ...state };
     case "payLoan":
       return state.balance >= state.loan
         ? { ...state, balance: state.balance - state.loan, loan: 0 }
