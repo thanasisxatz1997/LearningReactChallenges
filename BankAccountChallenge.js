@@ -26,7 +26,11 @@ function reducer(state, action) {
         : { ...state };
     case "requestLoan":
       return state.loan === 0
-        ? { ...state, loan: action.payload }
+        ? {
+            ...state,
+            loan: action.payload,
+            balance: state.balance + action.payload,
+          }
         : { ...state };
     case "payLoan":
       return state.balance >= state.loan
