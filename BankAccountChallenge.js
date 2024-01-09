@@ -19,10 +19,7 @@ function reducer(state, action) {
         : { ...state };
     case "closeAccount":
       return state.status === "open" && state.balance === 0 && state.loan === 0
-        ? {
-            ...state,
-            status: "closed",
-          }
+        ? initialState
         : { ...state };
     case "requestLoan":
       return state.loan === 0
